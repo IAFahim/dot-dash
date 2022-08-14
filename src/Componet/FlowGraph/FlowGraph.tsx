@@ -23,7 +23,7 @@ const FlowGraph = () => {
         <Card style={{width: "100vw", height: "80vh"}} p={0}>
             <div style={{display:"flex",justifyContent:"space-between"}}>
             <Title p='md'>Morse Code Binary Tree<Click/></Title>
-            <TextInput pt='xl' pr="md" icon={<User/>}/>
+            <TextInput pt='xl' pr="md" icon={<User/>} value={"IAFahim"}/>
             </div>
             <ReactFlow defaultNodes={defaultNodes} defaultEdges={defaultEdges}/>
         </Card>
