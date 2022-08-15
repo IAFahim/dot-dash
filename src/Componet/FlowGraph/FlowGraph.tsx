@@ -2,14 +2,15 @@ import ReactFlow, {Background, Edge, Node} from 'react-flow-renderer';
 import {Card, Title, TextInput, Tooltip, Button} from "@mantine/core";
 import {BrandGithub, Click, Send, TextDirectionLtr, User} from "tabler-icons-react";
 import {useInputState} from '@mantine/hooks';
-import {useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 
 const defaultNodes = [
-    {id: '1', data: {label: 'E'}, type: "input", position: {x: window.innerWidth / 2 - 75, y: 50}, style: {width: 50}},
-    {id: '2', data: {label: 'T'}, position: {x: window.innerWidth / 2 - 300, y: 150}},
-    {id: '3', data: {label: 'I'}, position: {x: window.innerWidth / 2 + 150, y: 150}},
-    {id: '4', data: {label: 'A'}, position: {x: window.innerWidth / 2 - 300 - 85, y: 250}},
-    {id: '5', data: {label: 'N'}, position: {x: window.innerWidth / 2 - 300 + 85, y: 250}},
+    {id: '1', data: {label: 'Morse Code'}, type: "input", position: {x: window.innerWidth / 2 - 75, y: 50}, style: {width: 100}},
+    {id: '2', data: {label: 'E'}, position: {x: window.innerWidth / 2 - 300, y: 150},style: {width: 30}},
+    {id: '6', data: {label: ''}, position: {x: window.innerWidth / 2 - 300, y: 150},style: {width: 30}},
+    {id: '3', data: {label: 'T'}, position: {x: window.innerWidth / 2 + 150, y: 150}},
+    {id: '4', data: {label: 'I'}, position: {x: window.innerWidth / 2 - 300 - 85, y: 250}},
+    {id: '5', data: {label: 'A'}, position: {x: window.innerWidth / 2 - 300 + 85, y: 250}},
 ] as Node[];
 
 const defaultEdges = [
@@ -19,10 +20,13 @@ const defaultEdges = [
     {id: 'e2-5', source: '2', target: '5', type: 'smoothstep'}
 ] as Edge[];
 
+
+
 const FlowGraph = () => {
     const savedUserName = localStorage.getItem("esp32UserName");
     const [esp32UserName, setEsp32UserName] = useState(savedUserName ? savedUserName : "IAFahim");
     const [data, setData] = useInputState('');
+    const [morseCode, setMorseCode] = useState("");
 
     const handleUserName = async (e: any) => {
         setEsp32UserName(e.currentTarget.value);
@@ -55,7 +59,11 @@ const FlowGraph = () => {
                     <TextInput label='ESP32 User Name' pt='xl' pr="md" icon={<User/>} value={esp32UserName}
                                onChange={handleUserName}/>
                 </div>
-                <ReactFlow defaultNodes={defaultNodes} defaultEdges={defaultEdges}>
+                <ReactFlow fitView defaultNodes={defaultNodes} defaultEdges={defaultEdges} onNodeClick={(event, node) => {
+                    console.log(event)
+                    // @ts-ignore
+                    // console.log(morseCode.mosre[node.data.label])
+                }}>
                     <Background/>
                 </ReactFlow>
             </Card>

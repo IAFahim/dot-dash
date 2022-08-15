@@ -1,0 +1,1 @@
+![wiki](pics/Morse_code_tree3.png)
