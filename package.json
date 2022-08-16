@@ -15,7 +15,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tabler-icons-react": "1.54.0",
-    "react-flow-renderer": "10.3.14",
+    "react-flow-renderer": "10.3.15",
     "react-scripts": "5.0.1",
     "typescript": "4.7.4",
     "web-vitals": "2.1.4"
