@@ -1,32 +1,38 @@
 import ReactFlow, {Background, Edge, Node} from 'react-flow-renderer';
-import {Card, Title, TextInput, Tooltip, Button} from "@mantine/core";
-import {BrandGithub, Click, Send, TextDirectionLtr, User} from "tabler-icons-react";
+import {Card, Title, TextInput, Tooltip, Button, createStyles} from "@mantine/core";
+import {Click, Send, TextDirectionLtr, User} from "tabler-icons-react";
 import {useInputState} from '@mantine/hooks';
-import {useCallback, useMemo, useState} from "react";
+import {useState} from "react";
+import Morse from "./Morse";
 
-const defaultNodes = [
-    {id: '1', data: {label: 'Morse Code'}, type: "input", position: {x: window.innerWidth / 2 - 75, y: 50}, style: {width: 100}},
-    {id: '2', data: {label: 'E'}, position: {x: window.innerWidth / 2 - 300, y: 150},style: {width: 30}},
-    {id: '6', data: {label: ''}, position: {x: window.innerWidth / 2 - 300, y: 150},style: {width: 30}},
-    {id: '3', data: {label: 'T'}, position: {x: window.innerWidth / 2 + 150, y: 150}},
-    {id: '4', data: {label: 'I'}, position: {x: window.innerWidth / 2 - 300 - 85, y: 250}},
-    {id: '5', data: {label: 'A'}, position: {x: window.innerWidth / 2 - 300 + 85, y: 250}},
-] as Node[];
+const useStyles = createStyles((theme) => ({
+    title:{
+        paddingLeft: 10,
+    },
 
-const defaultEdges = [
-    {id: 'e1-2', source: '1', target: '2', animated: true, type: 'smoothstep'},
-    {id: 'e1-3', source: '1', target: '3', type: 'smoothstep'},
-    {id: 'e2-4', source: '2', target: '4', type: 'smoothstep', animated: true},
-    {id: 'e2-5', source: '2', target: '5', type: 'smoothstep'}
-] as Edge[];
+    textSend: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingLeft: 100,
+        paddingRight: 100,
 
+        [theme.fn.smallerThan('sm')]: {
+            paddingLeft:theme.spacing.md,
+            paddingRight:theme.spacing.md
+        }
+    },
+}));
 
+const morse=new Morse();
 
 const FlowGraph = () => {
+    const {classes} = useStyles();
     const savedUserName = localStorage.getItem("esp32UserName");
     const [esp32UserName, setEsp32UserName] = useState(savedUserName ? savedUserName : "IAFahim");
     const [data, setData] = useInputState('');
-    const [morseCode, setMorseCode] = useState("");
+    const [defaultNodes, setDefaultNodes] = useState(morse.defaultNodes);
+    const [defaultEdges, setDefaultEdges] = useState(morse.defaultEdges);
 
     const handleUserName = async (e: any) => {
         setEsp32UserName(e.currentTarget.value);
@@ -51,15 +57,15 @@ const FlowGraph = () => {
 
     return (
         <>
-            <Card style={{width: "100vw", height: "80vh"}} p={0}>
+            <Card style={{width: "100vw", height: "70vh"}} p={0}>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <Tooltip label="Click graph send data to your esp32" position="right">
-                        <Title p='md'>Morse Code Binary Tree<Click style={{paddingLeft: 10}}/></Title>
+                        <Title p='md' className={classes.title}>Morse Code Binary Tree<Click/></Title>
                     </Tooltip>
                     <TextInput label='ESP32 User Name' pt='xl' pr="md" icon={<User/>} value={esp32UserName}
                                onChange={handleUserName}/>
                 </div>
-                <ReactFlow fitView defaultNodes={defaultNodes} defaultEdges={defaultEdges} onNodeClick={(event, node) => {
+                <ReactFlow defaultNodes={defaultNodes} defaultEdges={defaultEdges} onNodeClick={(event, node) => {
                     console.log(event)
                     // @ts-ignore
                     // console.log(morseCode.mosre[node.data.label])
@@ -67,19 +73,13 @@ const FlowGraph = () => {
                     <Background/>
                 </ReactFlow>
             </Card>
-            <Card style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                paddingLeft: 100,
-                paddingRight: 100
-            }}>
+            <Card className={classes.textSend}>
                 <TextInput icon={<TextDirectionLtr/>}
-                           label="send string to be converted to morse code to esp32"
                            value={data}
+                           placeholder={'send string morse code to esp32'}
                            onChange={setData}
                            style={{flex: 1}} pr="lg"/>
-                <Button mt="xl" leftIcon={<Send/>} variant={"gradient"} onClick={handleSendingData}>Send</Button>
+                <Button leftIcon={<Send/>} variant={"gradient"} onClick={handleSendingData}>Send</Button>
             </Card>
         </>
     );
