@@ -5,4 +5,4 @@ You sent data from website to beep in your esp32
  
 ```youtube link```
 
-[![yt](http://img.youtube.com/vi/NlQMzwaLn44/0.jpg)](https://youtu.be/zqextCMBxSc "Sorry for not explaining")
+[![yt](http://img.youtube.com/vi/NlQMzwaLn44/0.jpg)](https://youtu.be/NlQMzwaLn44 "Sorry for not explaining")
