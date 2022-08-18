@@ -60,7 +60,7 @@ export default class Morse {
         "@": ".--.-.",
         "=": "-...-"
     };
-    innerWidths = 1920;
+    innerWidths = 1440;
     defaultNodes = [{
         id: '1',
         data: {label: 'Morse Code'},
@@ -74,7 +74,7 @@ export default class Morse {
     constructor() {
         let l = 2;
 
-        for (let i = 0, c = 1, odd = 1, x = 0, y = 100; i < this.arr.length; i++) {
+        for (let i = 0, c = 1, odd = 1, x = 0, y = 100; i < 62; i++) {
             x = (odd * this.innerWidths) / (l << 1)
             let ch = this.arr[i], skip = ch === ' ';
             let cr = i + 2;

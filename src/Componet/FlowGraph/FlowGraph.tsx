@@ -1,10 +1,10 @@
 import ReactFlow, {Background} from 'react-flow-renderer';
-import {Card, Title, TextInput, Tooltip, Button, createStyles, Notification} from "@mantine/core";
+import {Card, Title, TextInput, Tooltip, Button, createStyles, Notification, Image} from "@mantine/core";
 import {Click, Send, TextDirectionLtr, User, CircleCheck} from "tabler-icons-react";
 import {useInputState} from '@mantine/hooks';
 import {useState} from "react";
 import Morse from "./Morse";
-import Esp32 from "../../SupaBase/supabaseHandle";
+import Esp32, {supabase} from "../../SupaBase/supabaseHandle";
 
 const useStyles = createStyles((theme) => ({
     title: {
@@ -39,6 +39,7 @@ const FlowGraph = () => {
     const [sent, setSent] = useState(false)
     const [morseCode, setMorseCode] = useState("")
 
+
     const handleUserName = async (e: any) => {
         setEsp32UserName(e.currentTarget.value);
         localStorage.setItem("esp32UserName", e.currentTarget.value)
@@ -58,40 +59,41 @@ const FlowGraph = () => {
         <>
             <Card style={{width: "100vw", height: "75vh"}} p={0}>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
-                    <Tooltip label="Click graph send data to your esp32" position="right">
+                    <Tooltip label="Click the graph below to send data on your esp32 ID" position="right">
                         <Title p='md' className={classes.title}>Morse Code Binary Tree<Click/></Title>
                     </Tooltip>
                     <TextInput label='ESP32 User Name' pr="md" icon={<User/>} value={esp32UserName}
                                onChange={handleUserName}/>
                 </div>
-                <ReactFlow defaultNodes={defaultNodes} defaultEdges={defaultEdges} onNodeClick={(event, node) => {
-                    // @ts-ignore
-                    console.log(morse.mosre[node.data.label])
-                    // @ts-ignore
-                    if (morse.mosre[node.data.label]!=null) {
-                        // @ts-ignore
-                        setMorseCode(node.data.label);
-                        esp32.handleSendingData(esp32UserName, node.data.label);
-                        setSent(true);
-                        setTimeout(() => {
-                            setSent(false);
-                        }, 3000)
-                    }
-                }}>
+                <ReactFlow fitView defaultNodes={defaultNodes} defaultEdges={defaultEdges}
+                           onNodeClick={(event, node) => {
+                               // @ts-ignore
+                               console.log(morse.mosre[node.data.label])
+                               // @ts-ignore
+                               if (morse.mosre[node.data.label] != null) {
+                                   // @ts-ignore
+                                   setMorseCode(node.data.label);
+                                   esp32.handleSendingData(esp32UserName, node.data.label);
+                                   setSent(true);
+                                   setTimeout(() => {
+                                       setSent(false);
+                                   }, 3000)
+                               }
+                           }}>
                     <Background/>
                 </ReactFlow>
             </Card>
             <Card className={classes.textSend}>
                 <TextInput icon={<TextDirectionLtr/>}
                            value={str}
-                           placeholder={'send string morse code to esp32'}
+                           placeholder={'send Text to esp32 to beep'}
                            onChange={setStr}
                            style={{flex: 1}} pr="lg"/>
                 <Button leftIcon={<Send/>} variant={"gradient"} onClick={handleSendingData}>Send</Button>
             </Card>
             <Card style={{display: "flex", justifyContent: "flex-end"}}>
 
-                {sent && <Notification style={{ width: 300}}
+                {sent && <Notification style={{width: 300}}
                                        icon={<CircleCheck size={18}/>}
                                        onClick={(e) => {
                                            setSent(false)

@@ -25,6 +25,17 @@ export default class Esp32 {
             console.log(e)
         }
     }
+
+    async fetchData(userName:string){
+        try{
+            const {data, error}=await supabase.from("esp32").select("data").eq("username",userName);
+            if(error) throw error;
+            return data[0].data.morseCode;
+        }catch (e){
+            console.log(e);
+        }
+
+    }
 }
 
 
