@@ -62,7 +62,7 @@ const FlowGraph = () => {
                     <Tooltip label="Click the graph below to send data on your esp32 ID" position="right">
                         <Title p='md' className={classes.title}>Morse Code Binary Tree<Click/></Title>
                     </Tooltip>
-                    <TextInput label='ESP32 User Name' pr="md" icon={<User/>} value={esp32UserName}
+                    <TextInput label='ESP32 User Name *(use the same on your EPS32)' pr="md" placeholder={"pick any"} icon={<User/>} value={esp32UserName}
                                onChange={handleUserName}/>
                 </div>
                 <ReactFlow fitView defaultNodes={defaultNodes} defaultEdges={defaultEdges}

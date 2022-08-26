@@ -29,7 +29,7 @@ wifi = connect(ssid='HP_LaserZet_2045',password='fahimfahim', times=15)    #Chan
                 <CodeSnip highlight={mainPy}
                           url={"https://raw.githubusercontent.com/IAFahim/ESP32/master/main.py"}></CodeSnip>
                 <Steps text={"Video"} subtext={"Youtube"}/>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/NlQMzwaLn44"
+                <iframe width="100%" height="400" src="https://www.youtube.com/embed/NlQMzwaLn44"
                         title="YouTube video player" frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen></iframe>
