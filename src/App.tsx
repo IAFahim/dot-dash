@@ -1,7 +1,7 @@
 import React from 'react';
 import {MantineHeader} from "./Componet/MantineHeader/MantineHeader";
 import FlowGraph from "./Componet/FlowGraph/FlowGraph";
-import HowItWorks from "./Componet/HowItWorks/HowItWorks";
+import Report from "./Componet/Report/Report";
 import {Card, Text} from "@mantine/core"
 
 function App() {
@@ -13,9 +13,9 @@ function App() {
                 <Text ml={"md"} color={"dimmed"}>Report Below <i>scroll down to view</i></Text>
             </div>
 
-            <Card>
-                <HowItWorks></HowItWorks>
-            </Card>
+            <div>
+                <Report></Report>
+            </div>
         </>
     );
 }
