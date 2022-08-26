@@ -63,7 +63,7 @@ export default class Morse {
     innerWidths = 1440;
     defaultNodes = [{
         id: '1',
-        data: {label: 'Morse CodeSnip'},
+        data: {label: 'Morse Code'},
         type: "input",
         position: {x: this.innerWidths / 2 - 75, y: 0},
         style: {width: 100}
